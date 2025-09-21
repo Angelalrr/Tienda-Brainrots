@@ -1,80 +1,472 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Tienda Brainrots</title>
+  <meta name="description" content="Tienda Brainrots - Compra y vende brainrots de Steal a Brainrot (SAB). Publica tu brainrot y recíbelos mediante pago." />
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="Tienda Brainrots" />
+  <meta property="og:description" content="Mercado de brainrots de SAB. Publica tu brainrot y recibe ofertas." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="" />
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
   <style>
+    /* --------- RESET SIMPLE --------- */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html,body { height:100%; }
+
+    /* --------- TIPO Y FONDO --------- */
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #8c52ff, #06edf6);
-      color: white;
-      text-align: center;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(140,82,255,0.18), transparent 10%),
+                  radial-gradient(1000px 500px at 90% 90%, rgba(6,237,246,0.12), transparent 10%),
+                  linear-gradient(135deg, #0b0f1a 0%, #061028 40%, #081016 100%);
+      color: #e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
     }
-    header {
-      background: rgba(0, 0, 0, 0.8);
-      padding: 20px;
-      font-size: 2.5em;
-      font-weight: bold;
-      text-shadow: 2px 2px 5px black;
+
+    header.site-header {
+      padding: 18px 22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      backdrop-filter: blur(4px);
     }
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 30px;
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:700;
+      font-size:1.25rem;
+      color: #fff;
+      text-shadow: 0 4px 18px rgba(140,82,255,0.16);
+    }
+    .brand .logo {
+      width:44px; height:44px; border-radius:10px;
+      background: linear-gradient(135deg,#8c52ff,#06edf6);
+      display:flex; align-items:center; justify-content:center;
+      font-weight:900; color:#041018; box-shadow: 0 6px 16px rgba(100,40,255,0.15);
+    }
+
+    nav {
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .btn {
+      background: linear-gradient(90deg,#ff3131,#ff914d);
+      border:none;
+      color:white;
+      padding:8px 12px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:600;
+      box-shadow: 0 6px 18px rgba(255,49,49,0.12);
+    }
+    .ghost {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.06);
+      padding:8px 12px;
+      border-radius:10px;
+      color: #dfefff;
+      cursor:pointer;
+    }
+
+    main {
+      padding: 28px;
+      flex:1;
+      width:100%;
+      max-width:1200px;
+      margin: 0 auto;
+    }
+
+    /* --------- HERO --------- */
+    .hero {
+      display:flex;
+      gap:20px;
+      align-items:center;
+      margin-bottom: 22px;
+    }
+    .hero .left {
+      flex:1;
+    }
+    .hero h1 {
+      font-size: clamp(1.6rem, 3.3vw, 2.4rem);
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom:8px;
+    }
+    .hero p {
+      color: #d6e9ff;
+      opacity: 0.9;
+    }
+    .hero .right {
+      width:260px;
+      min-width:200px;
+      background: linear-gradient(180deg, rgba(140,82,255,0.12), rgba(6,237,246,0.06));
+      padding:14px; border-radius:12px;
+      text-align:left;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .right small { color:#bcdcff; opacity:0.9; }
+
+    /* --------- GRID DE PRODUCTOS --------- */
+    .grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+      gap:18px;
+      margin-top:18px;
     }
     .card {
-      background: rgba(0, 0, 0, 0.7);
-      border-radius: 20px;
-      padding: 20px;
-      margin: 15px;
-      width: 250px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.8);
-      transition: transform 0.2s;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:16px;
+      border-radius:14px;
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 8px 22px rgba(2,6,23,0.6);
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      transition: transform 160ms ease, box-shadow 160ms ease;
     }
-    .card:hover {
-      transform: scale(1.05);
+    .card:hover { transform: translateY(-6px); box-shadow: 0 16px 36px rgba(2,6,23,0.8); }
+    .thumb {
+      height:140px; border-radius:10px; background: linear-gradient(135deg,#8c52ff,#06edf6);
+      display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1.1rem;
+      color: #041018;
     }
-    h2 {
-      margin-top: 0;
+    .meta { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+    .price { font-weight:700; color:#fff; }
+    .seller { font-size:0.85rem; color:#c7e3ff; opacity:0.9; }
+
+    /* --------- FORMULARIO PUBLICAR --------- */
+    .panel {
+      margin-top:30px;
+      background: rgba(255,255,255,0.02);
+      padding:16px; border-radius:12px;
+      border:1px solid rgba(255,255,255,0.03);
     }
-    button {
-      background: #ff3131;
-      border: none;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 1em;
-      transition: background 0.3s;
+    .panel h3 { margin-bottom:10px; }
+    .row { display:flex; gap:8px; margin-bottom:8px; }
+    .row .col { flex:1; }
+    input[type="text"], input[type="number"], textarea {
+      width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.04);
+      background: rgba(4,8,16,0.6); color:#e6f2ff;
     }
-    button:hover {
-      background: #ff914d;
+    textarea { min-height:80px; resize:vertical; }
+
+    footer.site-footer {
+      padding: 18px;
+      text-align:center;
+      font-size:0.9rem;
+      color:#bcdcff;
+      background: linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+      border-top: 1px solid rgba(255,255,255,0.02);
+    }
+
+    /* --------- MODAL STYLES --------- */
+    .modal-backdrop { position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:1000; }
+    .modal-backdrop.show { display:flex; background: rgba(2,6,23,0.6); }
+    .modal {
+      background: linear-gradient(180deg, #071223, #051227);
+      border-radius:12px; padding:18px; width:100%; max-width:420px; color:#e6f2ff;
+      border: 1px solid rgba(255,255,255,0.04);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.7);
+    }
+    .modal h4 { margin-bottom:10px; }
+    .modal .muted { color:#9fc7ff; opacity:0.9; font-size:0.95rem; margin-bottom:12px; }
+
+    /* --------- RESPONSIVE --------- */
+    @media (max-width:700px) {
+      header.site-header { flex-direction:column; gap:12px; align-items:flex-start; }
+      .hero { flex-direction:column; gap:12px; }
+      .hero .right { width:100%; }
     }
   </style>
 </head>
 <body>
-  <header>🧠 Tienda Brainrots 🎮</header>
-
-  <div class="container">
-    <div class="card">
-      <h2>Hotpotsitos</h2>
-      <p>Precio: 100 Robux</p>
-      <button onclick="alert('Inicia sesión para comprar')">Comprar</button>
+  <header class="site-header">
+    <div class="brand">
+      <div class="logo">B</div>
+      <div>
+        Tienda Brainrots<br><small style="font-weight:500; color:#cfe8ff; opacity:0.9;">Mercado de brainrots — Steal a Brainrot (SAB)</small>
+      </div>
     </div>
 
-    <div class="card">
-      <h2>La grande combinación</h2>
-      <p>Precio: 150 Robux</p>
-      <button onclick="alert('Inicia sesión para comprar')">Comprar</button>
-    </div>
+    <nav>
+      <button class="ghost" onclick="scrollToProducts()">Productos</button>
+      <button class="ghost" onclick="document.getElementById('postForm').scrollIntoView({behavior:'smooth'})">Vender</button>
+      <button class="btn" onclick="openLoginModal()">Iniciar sesión</button>
+    </nav>
+  </header>
 
-    <div class="card">
-      <h2>Favorita bicicleta</h2>
-      <p>Precio: 200 Robux</p>
-      <button onclick="alert('Inicia sesión para comprar')">Comprar</button>
+  <main>
+    <section class="hero">
+      <div class="left">
+        <h1>Compra y vende brainrots con seguridad</h1>
+        <p>Publica tu brainrot, deja tu contacto y recibe ofertas. Si quieres comprar, presiona <strong>Comprar</strong> y te pediremos iniciar sesión para completar el proceso.</p>
+      </div>
+      <aside class="right">
+        <small>Consejos rápidos</small>
+        <ul style="margin-top:8px; color:#dff0ff; padding-left:18px;">
+          <li>Incluye el link del item en Roblox.</li>
+          <li>Agrega tu usuario de Roblox o medio de pago para recibir la oferta.</li>
+          <li>Ten cuidado con estafas: solo paga después de verificar el intercambio.</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Productos -->
+    <section id="products">
+      <h2 style="margin-bottom:8px;">Brainrots disponibles</h2>
+      <div class="grid" id="productGrid" aria-live="polite">
+        <!-- Productos se inyectan por JS -->
+      </div>
+    </section>
+
+    <!-- Formulario publicar -->
+    <section class="panel" id="postForm" style="margin-top:28px;">
+      <h3>Publica tu brainrot</h3>
+      <p style="color:#bfe6ff; margin-bottom:8px;">Rellena los datos y tu publicación aparecerá en la lista.</p>
+      <div class="row">
+        <div class="col">
+          <label class="muted">Nombre del brainrot</label>
+          <input id="iName" type="text" placeholder="Ej: Hotpotsitos" />
+        </div>
+        <div class="col">
+          <label class="muted">Precio (Robux)</label>
+          <input id="iPrice" type="number" placeholder="100" min="0" />
+        </div>
+      </div>
+
+      <div style="margin-bottom:8px;">
+        <label class="muted">Link en Roblox (opcional)</label>
+        <input id="iLink" type="text" placeholder="https://www.roblox.com/..." />
+      </div>
+
+      <div style="margin-bottom:8px;">
+        <label class="muted">Tu contacto (Roblox/PayPal/Yape)</label>
+        <input id="iContact" type="text" placeholder="Ej: UsuarioRoblox o paypal@ejemplo.com" />
+      </div>
+
+      <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:6px;">
+        <button class="ghost" onclick="clearForm()">Limpiar</button>
+        <button class="btn" onclick="publishItem()">Publicar</button>
+      </div>
+      <small style="display:block; margin-top:8px; color:#9fc7ff;">Tu publicación se guarda localmente. Si quieres que se publique para todos en la web (online), más adelante podemos conectar una base de datos (Firebase) o backend.</small>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    © <span id="year"></span> Tienda Brainrots — Hecho con ❤️ para la comunidad SAB.  
+    <div style="margin-top:6px; color:#9fc7ff; font-size:0.85rem;">Sube items con responsabilidad. No soportamos estafas; verifica siempre antes de pagar.</div>
+  </footer>
+
+  <!-- MODAL: Iniciar sesión -->
+  <div id="modalLogin" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document" aria-labelledby="loginTitle">
+      <h4 id="loginTitle">Inicia sesión para comprar</h4>
+      <div class="muted">Debes iniciar sesión para continuar con la compra. (Funcionalidad simulada)</div>
+
+      <!-- Opcional: formulario estético -->
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <input id="loginUser" type="text" placeholder="Usuario" />
+        <input id="loginPass" type="password" placeholder="Contraseña" />
+      </div>
+
+      <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:12px;">
+        <button class="ghost" onclick="closeLoginModal()">Cancelar</button>
+        <button class="btn" onclick="fakeLogin()">Iniciar sesión</button>
+      </div>
+
+      <small style="display:block; margin-top:10px; color:#9fc7ff;">Nota: Este inicio de sesión es sólo estético; no conecta con Roblox. Si quieres integrar autenticación real (Discord/Roblox OAuth) te lo puedo implementar después.</small>
     </div>
   </div>
+
+  <!-- MODAL: Compra confirmada (simulada) -->
+  <div id="modalBuy" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document">
+      <h4 id="buyTitle">Confirmar compra</h4>
+      <div class="muted" id="buyDetails">...</div>
+
+      <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:12px;">
+        <button class="ghost" onclick="closeBuyModal()">Cerrar</button>
+        <button class="btn" onclick="confirmPurchase()">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --------- Config / Datos iniciales ----------
+    const initialProducts = [
+      { id: genId(), name: "Hotpotsitos", price: 100, link: "", seller: "Vendedor1", created: Date.now() },
+      { id: genId(), name: "La grande combinación", price: 150, link: "", seller: "Vendedor2", created: Date.now() },
+      { id: genId(), name: "Favorita bicicleta", price: 200, link: "", seller: "Vendedor3", created: Date.now() }
+    ];
+
+    function genId(){ return 'p_' + Math.random().toString(36).slice(2,9); }
+
+    // --------- LocalStorage helpers ----------
+    function loadProducts(){
+      try {
+        const raw = localStorage.getItem('tienda_brainrots_products');
+        if(!raw){ localStorage.setItem('tienda_brainrots_products', JSON.stringify(initialProducts)); return initialProducts; }
+        return JSON.parse(raw);
+      } catch(e){ localStorage.removeItem('tienda_brainrots_products'); localStorage.setItem('tienda_brainrots_products', JSON.stringify(initialProducts)); return initialProducts; }
+    }
+    function saveProducts(list){ localStorage.setItem('tienda_brainrots_products', JSON.stringify(list)); }
+
+    // --------- Render productos ----------
+    function renderProducts(){
+      const grid = document.getElementById('productGrid');
+      const products = loadProducts();
+      grid.innerHTML = '';
+      products.sort((a,b)=> b.created - a.created);
+      for(const p of products){
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="thumb">${escapeHtml(p.name)}</div>
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div style="font-weight:700; font-size:1.05rem;">${escapeHtml(p.name)}</div>
+              <div class="price">${p.price} Robux</div>
+            </div>
+            <div style="margin-top:8px; display:flex; justify-content:space-between; align-items:center;">
+              <div class="seller">Vendedor: ${escapeHtml(p.seller || 'Anónimo')}</div>
+              <div style="display:flex; gap:8px;">
+                <button class="ghost" onclick="viewDetails('${p.id}')">Detalles</button>
+                <button class="btn" onclick="onBuy('${p.id}')">Comprar</button>
+              </div>
+            </div>
+            <div style="margin-top:8px; font-size:0.86rem; color:#bfe6ff; opacity:0.95;">
+              ${p.link ? `<a href="${escapeAttr(p.link)}" target="_blank" style="color:#bfe6ff;">Ver en Roblox</a>` : ''}
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      }
+    }
+
+    // --------- UI helpers ----------
+    function scrollToProducts(){ document.getElementById('products').scrollIntoView({behavior:'smooth'}); }
+    function escapeHtml(s){ if(!s) return ''; return s.replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]); }); }
+    function escapeAttr(s){ return s ? s.replace(/"/g,'&quot;') : ''; }
+
+    // --------- Publicar item ----------
+    function publishItem(){
+      const name = document.getElementById('iName').value.trim();
+      const price = parseInt(document.getElementById('iPrice').value) || 0;
+      const link = document.getElementById('iLink').value.trim();
+      const contact = document.getElementById('iContact').value.trim() || 'Sin contacto';
+
+      if(!name){ alert('Ingresa el nombre del brainrot'); return; }
+      if(price <= 0){ if(!confirm('El precio es 0 o inválido. ¿Deseas continuar con precio 0?')) return; }
+
+      const products = loadProducts();
+      const item = { id: genId(), name, price, link, seller: contact, created: Date.now() };
+      products.push(item);
+      saveProducts(products);
+      renderProducts();
+      clearForm();
+      alert('Tu brainrot fue publicado (guardado localmente).');
+    }
+
+    function clearForm(){
+      document.getElementById('iName').value = '';
+      document.getElementById('iPrice').value = '';
+      document.getElementById('iLink').value = '';
+      document.getElementById('iContact').value = '';
+    }
+
+    // --------- Detalles y compra (modal) ----------
+    function viewDetails(id){
+      const products = loadProducts();
+      const p = products.find(x=>x.id===id);
+      if(!p){ alert('No encontrado'); return; }
+      alert(`${p.name}\nPrecio: ${p.price} Robux\nVendedor: ${p.seller}\nLink: ${p.link || 'No disponible'}`);
+    }
+
+    // Aparece el modal que pide "Inicia sesión para comprar"
+    function onBuy(id){
+      // Mostrar modal de login (según lo solicitado)
+      openLoginModal(id);
+    }
+
+    let pendingBuyId = null;
+    function openLoginModal(id){
+      pendingBuyId = id || null;
+      const modal = document.getElementById('modalLogin');
+      modal.classList.add('show');
+      modal.setAttribute('aria-hidden','false');
+    }
+    function closeLoginModal(){
+      const modal = document.getElementById('modalLogin');
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden','true');
+      pendingBuyId = null;
+    }
+
+    // Simula un inicio de sesión (estético). Si quieres, al iniciar sesión mostramos modal de confirmación de compra.
+    let isLogged = false;
+    function fakeLogin(){
+      isLogged = true;
+      closeLoginModal();
+      if(pendingBuyId){
+        openBuyModal(pendingBuyId);
+      } else {
+        alert('Sesión iniciada (simulada). Ahora puedes comprar.');
+      }
+    }
+
+    function openBuyModal(id){
+      const p = loadProducts().find(x=>x.id===id);
+      if(!p){ alert('Producto no encontrado'); return; }
+      const backdrop = document.getElementById('modalBuy');
+      document.getElementById('buyDetails').textContent = `${p.name} — ${p.price} Robux\nVendedor: ${p.seller}\n${p.link ? 'Link disponible' : ''}`;
+      backdrop.classList.add('show'); backdrop.setAttribute('aria-hidden','false');
+      pendingBuyId = id;
+    }
+    function closeBuyModal(){ document.getElementById('modalBuy').classList.remove('show'); document.getElementById('modalBuy').setAttribute('aria-hidden','true'); pendingBuyId=null; }
+
+    function confirmPurchase(){
+      // Comportamiento simple: confirmar compra y mostrar instrucciones
+      const p = loadProducts().find(x=>x.id===pendingBuyId);
+      if(!p){ alert('Error: producto no encontrado'); closeBuyModal(); return; }
+      closeBuyModal();
+      const msg = `Compra confirmada (simulada)\nProducto: ${p.name}\nPrecio: ${p.price} Robux\nContacta al vendedor en: ${p.seller}\n\nNota: Este flujo es simulado. Debes acordar el intercambio en Roblox y verificar el item antes de pagar.`;
+      alert(msg);
+      pendingBuyId = null;
+    }
+
+    // --------- Init / UI bind ----------
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Close modals on backdrop click
+    document.querySelectorAll('.modal-backdrop').forEach(b => {
+      b.addEventListener('click', (e)=> {
+        if(e.target === b){ b.classList.remove('show'); b.setAttribute('aria-hidden','true'); pendingBuyId=null; }
+      });
+    });
+
+    // Load sample data if none
+    (function init(){
+      // Ensure products exist
+      loadProducts();
+      renderProducts();
+
+      // Prefill initial form (opcional)
+      document.getElementById('iName').placeholder = 'Ej: Hotpotsitos';
+      document.getElementById('iPrice').placeholder = 'Ej: 100';
+      document.getElementById('iContact').placeholder = 'Tu usuario de Roblox o medio de pago';
+    })();
+  </script>
 </body>
 </html>
