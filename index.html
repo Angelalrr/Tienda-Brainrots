@@ -4,469 +4,304 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Tienda Brainrots</title>
-  <meta name="description" content="Tienda Brainrots - Compra y vende brainrots de Steal a Brainrot (SAB). Publica tu brainrot y recíbelos mediante pago." />
-  <!-- Open Graph / Social -->
-  <meta property="og:title" content="Tienda Brainrots" />
-  <meta property="og:description" content="Mercado de brainrots de SAB. Publica tu brainrot y recibe ofertas." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="" />
-  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+  <meta name="description" content="Tienda Brainrots - Compra y vende brainrots de Steal a Brainrot. Envío rápido y soporte por WhatsApp." />
 
   <style>
-    /* --------- RESET SIMPLE --------- */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html,body { height:100%; }
+    /* ---------- RESET / BASE ---------- */
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter,Arial,Helvetica,sans-serif;background:
+      linear-gradient(135deg,#05060a 0%, #071227 40%, #051018 100%);
+      color:#e9f6ff;min-height:100vh;display:flex;flex-direction:column}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1180px;margin:0 auto;padding:20px}
 
-    /* --------- TIPO Y FONDO --------- */
-    body {
-      font-family: Inter, Arial, Helvetica, sans-serif;
-      background: radial-gradient(1200px 600px at 10% 10%, rgba(140,82,255,0.18), transparent 10%),
-                  radial-gradient(1000px 500px at 90% 90%, rgba(6,237,246,0.12), transparent 10%),
-                  linear-gradient(135deg, #0b0f1a 0%, #061028 40%, #081016 100%);
-      color: #e6eef6;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-    }
+    /* ---------- HEADER ---------- */
+    header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:rgba(255,255,255,0.02);border-bottom:1px solid rgba(255,255,255,0.03)}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,#8c52ff,#06edf6);display:flex;align-items:center;justify-content:center;font-weight:800;color:#041018}
+    nav{display:flex;gap:8px;align-items:center}
+    .btn{background:linear-gradient(90deg,#ff3131,#ff914d);border:none;padding:8px 12px;border-radius:10px;color:#fff;cursor:pointer;font-weight:700}
+    .ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:10px;color:#dff3ff;cursor:pointer}
 
-    header.site-header {
-      padding: 18px 22px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      backdrop-filter: blur(4px);
-    }
-    .brand {
-      display:flex;
-      align-items:center;
-      gap:12px;
-      font-weight:700;
-      font-size:1.25rem;
-      color: #fff;
-      text-shadow: 0 4px 18px rgba(140,82,255,0.16);
-    }
-    .brand .logo {
-      width:44px; height:44px; border-radius:10px;
-      background: linear-gradient(135deg,#8c52ff,#06edf6);
-      display:flex; align-items:center; justify-content:center;
-      font-weight:900; color:#041018; box-shadow: 0 6px 16px rgba(100,40,255,0.15);
-    }
+    /* ---------- HERO ---------- */
+    .hero{display:flex;gap:20px;align-items:center;padding:26px 0}
+    .hero-left{flex:1}
+    .hero h1{font-size:clamp(1.6rem,3.6vw,2.4rem);margin-bottom:8px}
+    .hero p{color:#cfeaff;opacity:0.95}
+    .hero-right{width:300px;min-width:220px;background:linear-gradient(180deg,rgba(140,82,255,0.08),rgba(6,237,246,0.06));padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
 
-    nav {
-      display:flex;
-      gap:10px;
-      align-items:center;
-    }
-    .btn {
-      background: linear-gradient(90deg,#ff3131,#ff914d);
-      border:none;
-      color:white;
-      padding:8px 12px;
-      border-radius:10px;
-      cursor:pointer;
-      font-weight:600;
-      box-shadow: 0 6px 18px rgba(255,49,49,0.12);
-    }
-    .ghost {
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.06);
-      padding:8px 12px;
-      border-radius:10px;
-      color: #dfefff;
-      cursor:pointer;
-    }
+    /* ---------- GRID PRODUCTOS ---------- */
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:18px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 8px 28px rgba(2,6,23,0.6);display:flex;flex-direction:column;gap:10px;transition:transform .14s}
+    .card:hover{transform:translateY(-6px)}
+    .thumb{height:130px;border-radius:10px;background:linear-gradient(135deg,#8c52ff,#06edf6);display:flex;align-items:center;justify-content:center;font-weight:800;color:#041018}
+    .meta{display:flex;justify-content:space-between;align-items:center}
+    .price{font-weight:800;color:#fff}
+    .seller{font-size:.85rem;color:#c7e3ff;opacity:.95}
 
-    main {
-      padding: 28px;
-      flex:1;
-      width:100%;
-      max-width:1200px;
-      margin: 0 auto;
-    }
+    /* ---------- FORM VENDER MULTI-STEP ---------- */
+    .panel{margin-top:28px;background:rgba(255,255,255,0.02);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .steps{display:flex;gap:8px;margin-bottom:12px}
+    .step{flex:1;padding:8px;border-radius:8px;background:rgba(255,255,255,0.01);text-align:center;font-weight:700}
+    .step.active{background:linear-gradient(90deg,#8c52ff,#06edf6);color:#041018}
 
-    /* --------- HERO --------- */
-    .hero {
-      display:flex;
-      gap:20px;
-      align-items:center;
-      margin-bottom: 22px;
-    }
-    .hero .left {
-      flex:1;
-    }
-    .hero h1 {
-      font-size: clamp(1.6rem, 3.3vw, 2.4rem);
-      letter-spacing: -0.02em;
-      color: #fff;
-      margin-bottom:8px;
-    }
-    .hero p {
-      color: #d6e9ff;
-      opacity: 0.9;
-    }
-    .hero .right {
-      width:260px;
-      min-width:200px;
-      background: linear-gradient(180deg, rgba(140,82,255,0.12), rgba(6,237,246,0.06));
-      padding:14px; border-radius:12px;
-      text-align:left;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-    .right small { color:#bcdcff; opacity:0.9; }
+    input,select,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:rgba(2,6,18,0.6);color:#e6f4ff}
+    textarea{min-height:80px;resize:vertical}
 
-    /* --------- GRID DE PRODUCTOS --------- */
-    .grid {
-      display:grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
-      gap:18px;
-      margin-top:18px;
-    }
-    .card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:16px;
-      border-radius:14px;
-      border: 1px solid rgba(255,255,255,0.03);
-      box-shadow: 0 8px 22px rgba(2,6,23,0.6);
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      transition: transform 160ms ease, box-shadow 160ms ease;
-    }
-    .card:hover { transform: translateY(-6px); box-shadow: 0 16px 36px rgba(2,6,23,0.8); }
-    .thumb {
-      height:140px; border-radius:10px; background: linear-gradient(135deg,#8c52ff,#06edf6);
-      display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1.1rem;
-      color: #041018;
-    }
-    .meta { display:flex; justify-content:space-between; align-items:center; gap:10px; }
-    .price { font-weight:700; color:#fff; }
-    .seller { font-size:0.85rem; color:#c7e3ff; opacity:0.9; }
+    /* ---------- FOOTER ---------- */
+    footer{padding:18px;border-top:1px solid rgba(255,255,255,0.02);text-align:center;color:#bfe6ff;background:linear-gradient(90deg,rgba(255,255,255,0.01),transparent)}
 
-    /* --------- FORMULARIO PUBLICAR --------- */
-    .panel {
-      margin-top:30px;
-      background: rgba(255,255,255,0.02);
-      padding:16px; border-radius:12px;
-      border:1px solid rgba(255,255,255,0.03);
-    }
-    .panel h3 { margin-bottom:10px; }
-    .row { display:flex; gap:8px; margin-bottom:8px; }
-    .row .col { flex:1; }
-    input[type="text"], input[type="number"], textarea {
-      width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.04);
-      background: rgba(4,8,16,0.6); color:#e6f2ff;
-    }
-    textarea { min-height:80px; resize:vertical; }
-
-    footer.site-footer {
-      padding: 18px;
-      text-align:center;
-      font-size:0.9rem;
-      color:#bcdcff;
-      background: linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
-      border-top: 1px solid rgba(255,255,255,0.02);
-    }
-
-    /* --------- MODAL STYLES --------- */
-    .modal-backdrop { position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:1000; }
-    .modal-backdrop.show { display:flex; background: rgba(2,6,23,0.6); }
-    .modal {
-      background: linear-gradient(180deg, #071223, #051227);
-      border-radius:12px; padding:18px; width:100%; max-width:420px; color:#e6f2ff;
-      border: 1px solid rgba(255,255,255,0.04);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.7);
-    }
-    .modal h4 { margin-bottom:10px; }
-    .modal .muted { color:#9fc7ff; opacity:0.9; font-size:0.95rem; margin-bottom:12px; }
-
-    /* --------- RESPONSIVE --------- */
-    @media (max-width:700px) {
-      header.site-header { flex-direction:column; gap:12px; align-items:flex-start; }
-      .hero { flex-direction:column; gap:12px; }
-      .hero .right { width:100%; }
-    }
+    /* ---------- MODALS/RESPONSIVE ---------- */
+    .modal-backdrop{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:999}
+    .modal-backdrop.show{display:flex;background:rgba(0,0,0,0.6)}
+    .modal{background:linear-gradient(180deg,#071223,#051227);padding:16px;border-radius:12px;color:#e6f4ff;width:100%;max-width:460px;border:1px solid rgba(255,255,255,0.03)}
+    @media(max-width:720px){ .hero{flex-direction:column}.hero-right{width:100%} header{flex-direction:column;align-items:flex-start;gap:10px} }
   </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="brand">
-      <div class="logo">B</div>
-      <div>
-        Tienda Brainrots<br><small style="font-weight:500; color:#cfe8ff; opacity:0.9;">Mercado de brainrots — Steal a Brainrot (SAB)</small>
+  <header>
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="logo">B</div>
+        <div>
+          <div style="font-weight:800">Tienda Brainrots</div>
+          <div style="font-size:.85rem;color:#bfe6ff;opacity:.9">Los mejores brainrots — Entrega rápida</div>
+        </div>
       </div>
-    </div>
 
-    <nav>
-      <button class="ghost" onclick="scrollToProducts()">Productos</button>
-      <button class="ghost" onclick="document.getElementById('postForm').scrollIntoView({behavior:'smooth'})">Vender</button>
-      <button class="btn" onclick="openLoginModal()">Iniciar sesión</button>
-    </nav>
+      <nav>
+        <button class="ghost" onclick="scrollToEl('products')">Brainrots</button>
+        <button class="ghost" onclick="scrollToEl('vender')">Vender</button>
+        <button class="btn" onclick="openLogin()">Iniciar sesión</button>
+      </nav>
+    </div>
   </header>
 
-  <main>
+  <main class="container">
+    <!-- HERO -->
     <section class="hero">
-      <div class="left">
-        <h1>Compra y vende brainrots con seguridad</h1>
-        <p>Publica tu brainrot, deja tu contacto y recibe ofertas. Si quieres comprar, presiona <strong>Comprar</strong> y te pediremos iniciar sesión para completar el proceso.</p>
+      <div class="hero-left">
+        <h1>Compra y vende Brainrots — rápido y seguro</h1>
+        <p>Publica tu brainrot en 5 pasos, únete al grupo de ventas por WhatsApp y recibe ofertas. Nosotros facilitamos la coordinación del pago y la entrega.</p>
+        <div style="margin-top:12px;display:flex;gap:8px;">
+          <button class="btn" onclick="scrollToEl('products')">Ver Brainrots</button>
+          <a class="ghost" href="#REEMPLAZAR_WHATSAPP" target="_blank">Soporte / WhatsApp</a>
+        </div>
       </div>
-      <aside class="right">
-        <small>Consejos rápidos</small>
-        <ul style="margin-top:8px; color:#dff0ff; padding-left:18px;">
-          <li>Incluye el link del item en Roblox.</li>
-          <li>Agrega tu usuario de Roblox o medio de pago para recibir la oferta.</li>
-          <li>Ten cuidado con estafas: solo paga después de verificar el intercambio.</li>
+
+      <aside class="hero-right">
+        <div style="font-weight:800;font-size:1.05rem;margin-bottom:8px">Por qué elegirnos</div>
+        <ul style="padding-left:16px;color:#dff6ff">
+          <li>Entrega instantánea (según disponibilidad)</li>
+          <li>Soporte por WhatsApp</li>
+          <li>Proceso paso a paso para vender</li>
         </ul>
       </aside>
     </section>
 
-    <!-- Productos -->
+    <!-- PRODUCTOS -->
     <section id="products">
-      <h2 style="margin-bottom:8px;">Brainrots disponibles</h2>
+      <h2>Brainrots disponibles <small id="totalCount" style="color:#bfe6ff;font-weight:700;margin-left:8px"></small></h2>
       <div class="grid" id="productGrid" aria-live="polite">
-        <!-- Productos se inyectan por JS -->
+        <!-- inyectado por JS -->
       </div>
     </section>
 
-    <!-- Formulario publicar -->
-    <section class="panel" id="postForm" style="margin-top:28px;">
-      <h3>Publica tu brainrot</h3>
-      <p style="color:#bfe6ff; margin-bottom:8px;">Rellena los datos y tu publicación aparecerá en la lista.</p>
-      <div class="row">
-        <div class="col">
-          <label class="muted">Nombre del brainrot</label>
-          <input id="iName" type="text" placeholder="Ej: Hotpotsitos" />
+    <!-- VENDER: formulario multi-step -->
+    <section id="vender" class="panel">
+      <h3>Vender Brainrot</h3>
+      <div class="steps" id="stepsHeader">
+        <div class="step active" data-step="1">1. Seleccionar</div>
+        <div class="step" data-step="2">2. Mutación / Rasgos</div>
+        <div class="step" data-step="3">3. Confirmar</div>
+        <div class="step" data-step="4">4. Contacto</div>
+        <div class="step" data-step="5">5. Enviar</div>
+      </div>
+
+      <form id="sellForm" onsubmit="event.preventDefault(); nextStep();" style="margin-top:10px;">
+        <div id="step1" class="stepPane">
+          <label>Nombre del Brainrot</label>
+          <input id="s_name" type="text" placeholder="Ej: Hotpotsitos" required>
+          <label style="margin-top:8px">Tipo / Secret</label>
+          <select id="s_secret">
+            <option value="">Selecciona (Secret / Normal)</option>
+            <option value="Secret">Secret</option>
+            <option value="Normal">Normal</option>
+          </select>
         </div>
-        <div class="col">
-          <label class="muted">Precio (Robux)</label>
-          <input id="iPrice" type="number" placeholder="100" min="0" />
+
+        <div id="step2" class="stepPane" style="display:none;margin-top:8px;">
+          <label>Mutación</label>
+          <select id="s_mutation">
+            <option value="Sin mutación">Sin mutación</option>
+            <option value="Mutación A">Mutación A</option>
+            <option value="Mutación B">Mutación B</option>
+          </select>
+          <label style="margin-top:8px">Rasgos (opcional)</label>
+          <input id="s_traits" type="text" placeholder="Ej: Rasgo1, Rasgo2">
         </div>
-      </div>
 
-      <div style="margin-bottom:8px;">
-        <label class="muted">Link en Roblox (opcional)</label>
-        <input id="iLink" type="text" placeholder="https://www.roblox.com/..." />
-      </div>
+        <div id="step3" class="stepPane" style="display:none;margin-top:8px;">
+          <label>Precio (Robux)</label>
+          <input id="s_price" type="number" min="0" placeholder="100">
+          <label style="margin-top:8px">Link en Roblox (opcional)</label>
+          <input id="s_link" type="text" placeholder="https://www.roblox.com/...">
+        </div>
 
-      <div style="margin-bottom:8px;">
-        <label class="muted">Tu contacto (Roblox/PayPal/Yape)</label>
-        <input id="iContact" type="text" placeholder="Ej: UsuarioRoblox o paypal@ejemplo.com" />
-      </div>
+        <div id="step4" class="stepPane" style="display:none;margin-top:8px;">
+          <label>País / Prefijo</label>
+          <select id="s_country">
+            <option value="+51">Perú (+51)</option>
+            <option value="+52">México (+52)</option>
+            <option value="+1">Estados Unidos (+1)</option>
+            <option value="+34">España (+34)</option>
+            <!-- agregar más si quieres -->
+          </select>
+          <label style="margin-top:8px">WhatsApp o contacto</label>
+          <input id="s_contact" type="text" placeholder="Ej: +51XXXXXXXX / usuarioRoblox">
+        </div>
 
-      <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:6px;">
-        <button class="ghost" onclick="clearForm()">Limpiar</button>
-        <button class="btn" onclick="publishItem()">Publicar</button>
-      </div>
-      <small style="display:block; margin-top:8px; color:#9fc7ff;">Tu publicación se guarda localmente. Si quieres que se publique para todos en la web (online), más adelante podemos conectar una base de datos (Firebase) o backend.</small>
+        <div id="step5" class="stepPane" style="display:none;margin-top:8px;">
+          <p style="color:#cfefff">Revisa y confirma tu publicación. Para enviar tu solicitud debes unirte al grupo de WhatsApp.</p>
+          <p><a href="#REEMPLAZAR_WHATSAPP" target="_blank" class="ghost">Unirme al grupo WhatsApp</a></p>
+        </div>
+
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px;">
+          <button type="button" class="ghost" onclick="prevStep()">Atrás</button>
+          <button type="submit" class="btn" id="nextBtn">Siguiente</button>
+        </div>
+      </form>
+      <small style="display:block;margin-top:10px;color:#bfe6ff">Tu publicación se guarda localmente. Para una publicación en línea real podemos conectar Firebase o un backend.</small>
     </section>
   </main>
 
-  <footer class="site-footer">
-    © <span id="year"></span> Tienda Brainrots — Hecho con ❤️ para la comunidad SAB.  
-    <div style="margin-top:6px; color:#9fc7ff; font-size:0.85rem;">Sube items con responsabilidad. No soportamos estafas; verifica siempre antes de pagar.</div>
+  <footer>
+    <div class="container">
+      © <span id="fYear"></span> Tienda Brainrots — Soporte por WhatsApp · Términos · Privacidad
+    </div>
   </footer>
 
-  <!-- MODAL: Iniciar sesión -->
-  <div id="modalLogin" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal" role="document" aria-labelledby="loginTitle">
-      <h4 id="loginTitle">Inicia sesión para comprar</h4>
-      <div class="muted">Debes iniciar sesión para continuar con la compra. (Funcionalidad simulada)</div>
-
-      <!-- Opcional: formulario estético -->
-      <div style="display:flex; flex-direction:column; gap:8px;">
-        <input id="loginUser" type="text" placeholder="Usuario" />
-        <input id="loginPass" type="password" placeholder="Contraseña" />
-      </div>
-
-      <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:12px;">
-        <button class="ghost" onclick="closeLoginModal()">Cancelar</button>
-        <button class="btn" onclick="fakeLogin()">Iniciar sesión</button>
-      </div>
-
-      <small style="display:block; margin-top:10px; color:#9fc7ff;">Nota: Este inicio de sesión es sólo estético; no conecta con Roblox. Si quieres integrar autenticación real (Discord/Roblox OAuth) te lo puedo implementar después.</small>
-    </div>
-  </div>
-
-  <!-- MODAL: Compra confirmada (simulada) -->
-  <div id="modalBuy" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal" role="document">
-      <h4 id="buyTitle">Confirmar compra</h4>
-      <div class="muted" id="buyDetails">...</div>
-
-      <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:12px;">
-        <button class="ghost" onclick="closeBuyModal()">Cerrar</button>
-        <button class="btn" onclick="confirmPurchase()">Confirmar</button>
+  <!-- MODALES -->
+  <div id="modalLogin" class="modal-backdrop" role="dialog" aria-hidden="true">
+    <div class="modal">
+      <h3>Iniciar sesión</h3>
+      <p style="color:#bfe6ff">Inicia sesión (simulado). Al iniciar sesión podrás marcar compras.</p>
+      <input id="loginUser" type="text" placeholder="Usuario">
+      <input id="loginPass" style="margin-top:8px" type="password" placeholder="Contraseña">
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">
+        <button class="ghost" onclick="closeLogin()">Cancelar</button>
+        <button class="btn" onclick="doFakeLogin()">Iniciar</button>
       </div>
     </div>
   </div>
 
   <script>
-    // --------- Config / Datos iniciales ----------
-    const initialProducts = [
-      { id: genId(), name: "Hotpotsitos", price: 100, link: "", seller: "Vendedor1", created: Date.now() },
-      { id: genId(), name: "La grande combinación", price: 150, link: "", seller: "Vendedor2", created: Date.now() },
-      { id: genId(), name: "Favorita bicicleta", price: 200, link: "", seller: "Vendedor3", created: Date.now() }
+    /* ---------- DATOS INICIALES ---------- */
+    const initial = [
+      { id: idGen(), name: "Hotpotsitos", price: 100, link: "", seller: "Vendedor1", created: Date.now() },
+      { id: idGen(), name: "La grande combinación", price: 150, link: "", seller: "Vendedor2", created: Date.now() },
+      { id: idGen(), name: "Favorita bicicleta", price: 200, link: "", seller: "Vendedor3", created: Date.now() }
     ];
 
-    function genId(){ return 'p_' + Math.random().toString(36).slice(2,9); }
+    function idGen(){ return 'i'+Math.random().toString(36).slice(2,9) }
 
-    // --------- LocalStorage helpers ----------
-    function loadProducts(){
-      try {
-        const raw = localStorage.getItem('tienda_brainrots_products');
-        if(!raw){ localStorage.setItem('tienda_brainrots_products', JSON.stringify(initialProducts)); return initialProducts; }
-        return JSON.parse(raw);
-      } catch(e){ localStorage.removeItem('tienda_brainrots_products'); localStorage.setItem('tienda_brainrots_products', JSON.stringify(initialProducts)); return initialProducts; }
-    }
-    function saveProducts(list){ localStorage.setItem('tienda_brainrots_products', JSON.stringify(list)); }
+    /* ---------- localStorage helpers ---------- */
+    function load(){ try{ const r = localStorage.getItem('brainrots_store'); if(!r){ localStorage.setItem('brainrots_store', JSON.stringify(initial)); return initial } return JSON.parse(r)}catch(e){ localStorage.setItem('brainrots_store', JSON.stringify(initial)); return initial } }
+    function save(list){ localStorage.setItem('brainrots_store', JSON.stringify(list)) }
 
-    // --------- Render productos ----------
-    function renderProducts(){
-      const grid = document.getElementById('productGrid');
-      const products = loadProducts();
-      grid.innerHTML = '';
-      products.sort((a,b)=> b.created - a.created);
-      for(const p of products){
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-          <div class="thumb">${escapeHtml(p.name)}</div>
+    /* ---------- RENDER PRODUCTOS ---------- */
+    function render(){
+      const grid = document.getElementById('productGrid'); grid.innerHTML='';
+      const list = load().sort((a,b)=> b.created - a.created);
+      document.getElementById('totalCount').textContent = `(${list.length})`;
+      for(const p of list){
+        const div = document.createElement('div'); div.className='card';
+        div.innerHTML = `
+          <div class="thumb">${esc(p.name)}</div>
           <div>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <div style="font-weight:700; font-size:1.05rem;">${escapeHtml(p.name)}</div>
-              <div class="price">${p.price} Robux</div>
-            </div>
-            <div style="margin-top:8px; display:flex; justify-content:space-between; align-items:center;">
-              <div class="seller">Vendedor: ${escapeHtml(p.seller || 'Anónimo')}</div>
-              <div style="display:flex; gap:8px;">
-                <button class="ghost" onclick="viewDetails('${p.id}')">Detalles</button>
+            <div class="meta"><div style="font-weight:800">${esc(p.name)}</div><div class="price">${p.price} Robux</div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+              <div class="seller">Vendedor: ${esc(p.seller||'Anónimo')}</div>
+              <div style="display:flex;gap:8px">
+                <button class="ghost" onclick="view('${p.id}')">Detalles</button>
                 <button class="btn" onclick="onBuy('${p.id}')">Comprar</button>
               </div>
             </div>
-            <div style="margin-top:8px; font-size:0.86rem; color:#bfe6ff; opacity:0.95;">
-              ${p.link ? `<a href="${escapeAttr(p.link)}" target="_blank" style="color:#bfe6ff;">Ver en Roblox</a>` : ''}
+            <div style="margin-top:8px;color:#bfe6ff;font-size:.9rem">
+              ${p.link ? `<a href="${attr(p.link)}" target="_blank">Ver en Roblox</a>` : ''}
             </div>
           </div>
         `;
-        grid.appendChild(card);
+        grid.appendChild(div);
       }
     }
 
-    // --------- UI helpers ----------
-    function scrollToProducts(){ document.getElementById('products').scrollIntoView({behavior:'smooth'}); }
-    function escapeHtml(s){ if(!s) return ''; return s.replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]); }); }
-    function escapeAttr(s){ return s ? s.replace(/"/g,'&quot;') : ''; }
+    function esc(s){ return (s||'').toString().replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])) }
+    function attr(s){ return s ? s.replace(/"/g,'&quot;') : '' }
 
-    // --------- Publicar item ----------
-    function publishItem(){
-      const name = document.getElementById('iName').value.trim();
-      const price = parseInt(document.getElementById('iPrice').value) || 0;
-      const link = document.getElementById('iLink').value.trim();
-      const contact = document.getElementById('iContact').value.trim() || 'Sin contacto';
-
-      if(!name){ alert('Ingresa el nombre del brainrot'); return; }
-      if(price <= 0){ if(!confirm('El precio es 0 o inválido. ¿Deseas continuar con precio 0?')) return; }
-
-      const products = loadProducts();
-      const item = { id: genId(), name, price, link, seller: contact, created: Date.now() };
-      products.push(item);
-      saveProducts(products);
-      renderProducts();
-      clearForm();
-      alert('Tu brainrot fue publicado (guardado localmente).');
+    /* ---------- FORM STEPS ---------- */
+    let curStep = 1;
+    function showStep(n){
+      curStep = n;
+      for(let i=1;i<=5;i++){
+        document.getElementById('step'+i).style.display = (i===n?'block':'none');
+        const el = document.querySelector('.step[data-step="'+i+'"]');
+        if(el) el.classList.toggle('active', i===n);
+      }
+      document.getElementById('nextBtn').textContent = (n<5? 'Siguiente' : 'Enviar solicitud');
     }
-
-    function clearForm(){
-      document.getElementById('iName').value = '';
-      document.getElementById('iPrice').value = '';
-      document.getElementById('iLink').value = '';
-      document.getElementById('iContact').value = '';
-    }
-
-    // --------- Detalles y compra (modal) ----------
-    function viewDetails(id){
-      const products = loadProducts();
-      const p = products.find(x=>x.id===id);
-      if(!p){ alert('No encontrado'); return; }
-      alert(`${p.name}\nPrecio: ${p.price} Robux\nVendedor: ${p.seller}\nLink: ${p.link || 'No disponible'}`);
-    }
-
-    // Aparece el modal que pide "Inicia sesión para comprar"
-    function onBuy(id){
-      // Mostrar modal de login (según lo solicitado)
-      openLoginModal(id);
-    }
-
-    let pendingBuyId = null;
-    function openLoginModal(id){
-      pendingBuyId = id || null;
-      const modal = document.getElementById('modalLogin');
-      modal.classList.add('show');
-      modal.setAttribute('aria-hidden','false');
-    }
-    function closeLoginModal(){
-      const modal = document.getElementById('modalLogin');
-      modal.classList.remove('show');
-      modal.setAttribute('aria-hidden','true');
-      pendingBuyId = null;
-    }
-
-    // Simula un inicio de sesión (estético). Si quieres, al iniciar sesión mostramos modal de confirmación de compra.
-    let isLogged = false;
-    function fakeLogin(){
-      isLogged = true;
-      closeLoginModal();
-      if(pendingBuyId){
-        openBuyModal(pendingBuyId);
+    function nextStep(){
+      if(curStep < 5){
+        showStep(curStep+1);
       } else {
-        alert('Sesión iniciada (simulada). Ahora puedes comprar.');
+        // enviar publicación: guardar en localStorage
+        const name = document.getElementById('s_name').value.trim();
+        const price = parseInt(document.getElementById('s_price').value) || 0;
+        const link = document.getElementById('s_link').value.trim();
+        const contact = (document.getElementById('s_contact').value || 'Sin contacto').trim();
+        if(!name){ alert('Ingresa nombre del brainrot'); showStep(1); return; }
+        const list = load();
+        list.push({ id: idGen(), name, price, link, seller: contact, created: Date.now() });
+        save(list); render();
+        alert('Solicitud enviada. Unete al grupo de WhatsApp para coordinar la venta.');
+        // limpiar form
+        document.getElementById('sellForm').reset();
+        showStep(1);
+      }
+    }
+    function prevStep(){ if(curStep>1) showStep(curStep-1) }
+    showStep(1);
+
+    /* ---------- BUY / LOGIN (simulado) ---------- */
+    let pendingBuy = null;
+    function onBuy(id){
+      pendingBuy = id;
+      openLogin();
+    }
+    function openLogin(){
+      const m = document.getElementById('modalLogin'); m.classList.add('show'); m.setAttribute('aria-hidden','false');
+    }
+    function closeLogin(){ const m=document.getElementById('modalLogin'); m.classList.remove('show'); m.setAttribute('aria-hidden','true') }
+    function doFakeLogin(){ closeLogin(); if(pendingBuy){ showPurchaseModal(); } else alert('Sesión iniciada (simulada)') }
+
+    function view(id){ const p = load().find(x=>x.id===id); if(!p) return alert('No encontrado'); alert(`${p.name}\nPrecio: ${p.price} Robux\nVendedor: ${p.seller}\nLink: ${p.link||'No disponible'}`) }
+
+    function showPurchaseModal(){
+      const p = load().find(x=>x.id===pendingBuy);
+      if(!p) return alert('Error');
+      const confirmed = confirm(`Comprar ${p.name} por ${p.price} Robux?\n\nNota: este es un flujo simulado. Coordina con el vendedor por WhatsApp antes de pagar.`);
+      if(confirmed){
+        alert(`Compra simulada confirmada.\nContacta a ${p.seller} para coordinar la entrega.`);
+        pendingBuy = null;
       }
     }
 
-    function openBuyModal(id){
-      const p = loadProducts().find(x=>x.id===id);
-      if(!p){ alert('Producto no encontrado'); return; }
-      const backdrop = document.getElementById('modalBuy');
-      document.getElementById('buyDetails').textContent = `${p.name} — ${p.price} Robux\nVendedor: ${p.seller}\n${p.link ? 'Link disponible' : ''}`;
-      backdrop.classList.add('show'); backdrop.setAttribute('aria-hidden','false');
-      pendingBuyId = id;
-    }
-    function closeBuyModal(){ document.getElementById('modalBuy').classList.remove('show'); document.getElementById('modalBuy').setAttribute('aria-hidden','true'); pendingBuyId=null; }
+    /* ---------- UTILS ---------- */
+    function scrollToEl(id){ document.getElementById(id).scrollIntoView({behavior:'smooth'}) }
+    document.getElementById('fYear').textContent = new Date().getFullYear();
 
-    function confirmPurchase(){
-      // Comportamiento simple: confirmar compra y mostrar instrucciones
-      const p = loadProducts().find(x=>x.id===pendingBuyId);
-      if(!p){ alert('Error: producto no encontrado'); closeBuyModal(); return; }
-      closeBuyModal();
-      const msg = `Compra confirmada (simulada)\nProducto: ${p.name}\nPrecio: ${p.price} Robux\nContacta al vendedor en: ${p.seller}\n\nNota: Este flujo es simulado. Debes acordar el intercambio en Roblox y verificar el item antes de pagar.`;
-      alert(msg);
-      pendingBuyId = null;
-    }
-
-    // --------- Init / UI bind ----------
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Close modals on backdrop click
-    document.querySelectorAll('.modal-backdrop').forEach(b => {
-      b.addEventListener('click', (e)=> {
-        if(e.target === b){ b.classList.remove('show'); b.setAttribute('aria-hidden','true'); pendingBuyId=null; }
-      });
-    });
-
-    // Load sample data if none
-    (function init(){
-      // Ensure products exist
-      loadProducts();
-      renderProducts();
-
-      // Prefill initial form (opcional)
-      document.getElementById('iName').placeholder = 'Ej: Hotpotsitos';
-      document.getElementById('iPrice').placeholder = 'Ej: 100';
-      document.getElementById('iContact').placeholder = 'Tu usuario de Roblox o medio de pago';
-    })();
+    /* init */
+    render();
   </script>
 </body>
 </html>
